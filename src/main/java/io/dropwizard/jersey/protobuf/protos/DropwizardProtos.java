@@ -25,6 +25,16 @@ public final class DropwizardProtos {
      */
     com.google.protobuf.ByteString
         getMessageBytes();
+
+    // optional int32 code = 2 [default = 500];
+    /**
+     * <code>optional int32 code = 2 [default = 500];</code>
+     */
+    boolean hasCode();
+    /**
+     * <code>optional int32 code = 2 [default = 500];</code>
+     */
+    int getCode();
   }
   /**
    * Protobuf type {@code dropwizard.ErrorMessage}
@@ -80,6 +90,11 @@ public final class DropwizardProtos {
             case 10: {
               bitField0_ |= 0x00000001;
               message_ = input.readBytes();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              code_ = input.readInt32();
               break;
             }
           }
@@ -165,8 +180,25 @@ public final class DropwizardProtos {
       }
     }
 
+    // optional int32 code = 2 [default = 500];
+    public static final int CODE_FIELD_NUMBER = 2;
+    private int code_;
+    /**
+     * <code>optional int32 code = 2 [default = 500];</code>
+     */
+    public boolean hasCode() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 code = 2 [default = 500];</code>
+     */
+    public int getCode() {
+      return code_;
+    }
+
     private void initFields() {
       message_ = "";
+      code_ = 500;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -187,6 +219,9 @@ public final class DropwizardProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getMessageBytes());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, code_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -199,6 +234,10 @@ public final class DropwizardProtos {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, code_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -318,6 +357,8 @@ public final class DropwizardProtos {
         super.clear();
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        code_ = 500;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -350,6 +391,10 @@ public final class DropwizardProtos {
           to_bitField0_ |= 0x00000001;
         }
         result.message_ = message_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.code_ = code_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -370,6 +415,9 @@ public final class DropwizardProtos {
           bitField0_ |= 0x00000001;
           message_ = other.message_;
           onChanged();
+        }
+        if (other.hasCode()) {
+          setCode(other.getCode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -476,6 +524,39 @@ public final class DropwizardProtos {
         return this;
       }
 
+      // optional int32 code = 2 [default = 500];
+      private int code_ = 500;
+      /**
+       * <code>optional int32 code = 2 [default = 500];</code>
+       */
+      public boolean hasCode() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 code = 2 [default = 500];</code>
+       */
+      public int getCode() {
+        return code_;
+      }
+      /**
+       * <code>optional int32 code = 2 [default = 500];</code>
+       */
+      public Builder setCode(int value) {
+        bitField0_ |= 0x00000002;
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 code = 2 [default = 500];</code>
+       */
+      public Builder clearCode() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        code_ = 500;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:dropwizard.ErrorMessage)
     }
 
@@ -501,10 +582,10 @@ public final class DropwizardProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020dropwizard.proto\022\ndropwizard\"\037\n\014ErrorM" +
-      "essage\022\017\n\007message\030\001 \002(\tB:\n$io.dropwizard" +
-      ".jersey.protobuf.protosB\020DropwizardProto" +
-      "sH\001"
+      "\n\020dropwizard.proto\022\ndropwizard\"2\n\014ErrorM" +
+      "essage\022\017\n\007message\030\001 \002(\t\022\021\n\004code\030\002 \001(\005:\0035" +
+      "00B:\n$io.dropwizard.jersey.protobuf.prot" +
+      "osB\020DropwizardProtosH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -516,7 +597,7 @@ public final class DropwizardProtos {
           internal_static_dropwizard_ErrorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_dropwizard_ErrorMessage_descriptor,
-              new java.lang.String[] { "Message", });
+              new java.lang.String[] { "Message", "Code", });
           return null;
         }
       };
