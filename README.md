@@ -26,7 +26,7 @@ This project is available on Maven Central. To add it to your project simply add
     <dependency>
       <groupId>io.dropwizard.modules</groupId>
       <artifactId>dropwizard-protobuf</artifactId>
-      <version>0.7.0-1</version>
+      <version>0.7.1-1</version>
     </dependency>
 
 
