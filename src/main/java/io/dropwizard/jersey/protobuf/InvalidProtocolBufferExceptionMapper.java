@@ -15,7 +15,7 @@ public class InvalidProtocolBufferExceptionMapper implements ExceptionMapper<Inv
     @Override
     public Response toResponse(InvalidProtocolBufferException exception) {
         final ErrorMessage message = ErrorMessage.newBuilder()
-                             .setMessage(exception.getMessage())
+                             .setMessage("Unable to process protocol buffer")
                              .setCode(Response.Status.BAD_REQUEST.getStatusCode())
                              .build();
 
