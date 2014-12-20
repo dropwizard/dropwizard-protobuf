@@ -3,7 +3,7 @@ Dropwizard Protobuf
 [![Build Status](https://travis-ci.org/dropwizard/dropwizard-protobuf.svg?branch=master)](https://travis-ci.org/dropwizard/dropwizard-protobuf)
 [![Coverage Status](https://img.shields.io/coveralls/dropwizard/dropwizard-protobuf.svg)](https://coveralls.io/r/dropwizard/dropwizard-protobuf)
 
-`dropwizard-protobuf` is a [Jersey](https://jersey.java.net) [JAX-RS Entity Provider](https://jersey.java.net/documentation/latest/message-body-workers.html) that allows reading and writing messages in Google's [Protocol Buffers](https://code.google.com/p/protobuf/) format.
+`dropwizard-protobuf` is a [Jersey](https://jersey.java.net) [JAX-RS Entity Provider](https://jersey.java.net/documentation/latest/message-body-workers.html) that allows reading and writing messages in Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) format.
 
 
 Usage
