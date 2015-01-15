@@ -7,7 +7,7 @@
 
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>0.7.1-4-SNAPSHOT</version>
+    <version>0.7.1-4-protobuf${protobuf.version}-SNAPSHOT</version>
     <packaging>jar</packaging>
     
     <name>Dropwizard Protocol Buffers Support</name>
@@ -83,7 +83,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>0.7.1</dropwizard.version>
-        <protobuf.version>2.6.1</protobuf.version>
+        <protobuf.version>2.4.1</protobuf.version>
     </properties>
 
     <dependencies>
@@ -149,6 +149,20 @@
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/proto</directory>
+            </resource>
+            <resource>
+                <directory>src/test/proto</directory>
+            </resource>
+            <resource>
+                <directory>target/generated-sources/protoc</directory>
+            </resource>
+            <resource>
+                <directory>target/generated-test-sources/protoc</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -242,10 +256,27 @@
                         <configuration>
                             <rules>
                                 <DependencyConvergence />
+                                <requireUpperBoundDeps />
                             </rules>
                         </configuration>
                         <goals>
                             <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.protobuf.tools</groupId>
+                <artifactId>maven-protoc-plugin</artifactId>
+                <version>0.1.10</version>
+                <configuration>
+                    <protocExecutable>/usr/local/bin/protoc</protocExecutable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
                         </goals>
                     </execution>
                 </executions>
