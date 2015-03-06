@@ -1,15 +1,20 @@
 package io.dropwizard.jersey.protobuf;
 
-import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.annotation.Annotation;
+
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MultivaluedHashMap;
+
+import org.glassfish.jersey.internal.util.collection.StringKeyIgnoreCaseMultivaluedMap;
 import org.junit.Test;
+
 import com.google.protobuf.Message;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
-import com.sun.jersey.core.util.StringKeyObjectValueIgnoreCaseMultivaluedMap;
+
 import io.dropwizard.jersey.protobuf.ProtocolBufferMessageBodyProvider;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example;
 
@@ -41,7 +46,7 @@ public class ProtocolBufferMessageBodyProviderTest {
                                              Example.class,
                                              NONE,
                                              ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
-                                             new MultivaluedMapImpl(),
+                                             new MultivaluedHashMap<String,String>(),
                                              entity);
 
         assertThat(obj)
@@ -61,12 +66,12 @@ public class ProtocolBufferMessageBodyProviderTest {
                               Example.class,
                               NONE,
                               ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
-                              new MultivaluedMapImpl(),
+                              new MultivaluedHashMap<String,String>(),
                               entity);
             failBecauseExceptionWasNotThrown(WebApplicationException.class);
         } catch (WebApplicationException e) {
             assertThat(e.getMessage())
-                    .startsWith("com.google.protobuf.InvalidProtocolBufferException");
+                    .startsWith("HTTP 500 Internal Server Error");
         }
     }
 
@@ -81,7 +86,7 @@ public class ProtocolBufferMessageBodyProviderTest {
                          Example.class,
                          NONE,
                          ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
-                         new StringKeyObjectValueIgnoreCaseMultivaluedMap(),
+                         new StringKeyIgnoreCaseMultivaluedMap<>(),
                          output);
 
         assertThat(output.toByteArray())
