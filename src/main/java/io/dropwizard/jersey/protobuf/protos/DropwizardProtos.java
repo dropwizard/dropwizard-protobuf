@@ -34,6 +34,20 @@ public final class DropwizardProtos {
      * <code>optional int32 code = 2 [default = 500];</code>
      */
     int getCode();
+
+    /**
+     * <code>optional string details = 3;</code>
+     */
+    boolean hasDetails();
+    /**
+     * <code>optional string details = 3;</code>
+     */
+    java.lang.String getDetails();
+    /**
+     * <code>optional string details = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getDetailsBytes();
   }
   /**
    * Protobuf type {@code dropwizard.ErrorMessage}
@@ -96,6 +110,12 @@ public final class DropwizardProtos {
             case 16: {
               bitField0_ |= 0x00000002;
               code_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              details_ = bs;
               break;
             }
           }
@@ -195,9 +215,52 @@ public final class DropwizardProtos {
       return code_;
     }
 
+    public static final int DETAILS_FIELD_NUMBER = 3;
+    private java.lang.Object details_;
+    /**
+     * <code>optional string details = 3;</code>
+     */
+    public boolean hasDetails() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string details = 3;</code>
+     */
+    public java.lang.String getDetails() {
+      java.lang.Object ref = details_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          details_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string details = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDetailsBytes() {
+      java.lang.Object ref = details_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        details_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       message_ = "";
       code_ = 500;
+      details_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -222,6 +285,9 @@ public final class DropwizardProtos {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt32(2, code_);
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getDetailsBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -238,6 +304,10 @@ public final class DropwizardProtos {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, code_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getDetailsBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -360,6 +430,8 @@ public final class DropwizardProtos {
         bitField0_ = (bitField0_ & ~0x00000001);
         code_ = 500;
         bitField0_ = (bitField0_ & ~0x00000002);
+        details_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -396,6 +468,10 @@ public final class DropwizardProtos {
           to_bitField0_ |= 0x00000002;
         }
         result.code_ = code_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.details_ = details_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -419,6 +495,11 @@ public final class DropwizardProtos {
         }
         if (other.hasCode()) {
           setCode(other.getCode());
+        }
+        if (other.hasDetails()) {
+          bitField0_ |= 0x00000004;
+          details_ = other.details_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -559,6 +640,82 @@ public final class DropwizardProtos {
         return this;
       }
 
+      private java.lang.Object details_ = "";
+      /**
+       * <code>optional string details = 3;</code>
+       */
+      public boolean hasDetails() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string details = 3;</code>
+       */
+      public java.lang.String getDetails() {
+        java.lang.Object ref = details_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            details_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string details = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDetailsBytes() {
+        java.lang.Object ref = details_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          details_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string details = 3;</code>
+       */
+      public Builder setDetails(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        details_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string details = 3;</code>
+       */
+      public Builder clearDetails() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        details_ = getDefaultInstance().getDetails();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string details = 3;</code>
+       */
+      public Builder setDetailsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        details_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:dropwizard.ErrorMessage)
     }
 
@@ -584,10 +741,10 @@ public final class DropwizardProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020dropwizard.proto\022\ndropwizard\"2\n\014ErrorM" +
+      "\n\020dropwizard.proto\022\ndropwizard\"C\n\014ErrorM" +
       "essage\022\017\n\007message\030\001 \002(\t\022\021\n\004code\030\002 \001(\005:\0035" +
-      "00B:\n$io.dropwizard.jersey.protobuf.prot" +
-      "osB\020DropwizardProtosH\001"
+      "00\022\017\n\007details\030\003 \001(\tB:\n$io.dropwizard.jer" +
+      "sey.protobuf.protosB\020DropwizardProtosH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -606,7 +763,7 @@ public final class DropwizardProtos {
     internal_static_dropwizard_ErrorMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_dropwizard_ErrorMessage_descriptor,
-        new java.lang.String[] { "Message", "Code", });
+        new java.lang.String[] { "Message", "Code", "Details", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

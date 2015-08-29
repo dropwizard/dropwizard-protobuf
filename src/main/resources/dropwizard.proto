@@ -7,4 +7,5 @@ option optimize_for = SPEED;
 message ErrorMessage {
   required string message = 1;
   optional int32 code = 2 [default = 500];
+  optional string details = 3;
 };
