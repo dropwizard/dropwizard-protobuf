@@ -1,12 +1,14 @@
+sudo: false
 language: java
-script: 
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && mvn verify deploy --settings maven_deploy_settings.xml || mvn test verify --settings maven_deploy_settings.xml'
-after_success:
-  - mvn jacoco:report coveralls:jacoco
 jdk:
-  - openjdk7
   - oraclejdk7
   - oraclejdk8
+after_success:
+  - bash .travis_after_success.sh
+cache:
+  directories:
+    - $HOME/.m2
+
 env:
   global:
     - secure: "brHZc6AaCVg7voivK3ssi8N+3Id+STnRE0WQ9HfPRYApearIR9U05Su/icAiwFB8uFyv/TMclR4FygWuj7A9cnH2YT5XCBIsffMYu7E/+86zDfX/+7yIfxLJDLQ4A3AWCrIQ4VBTdaOnrqbGiVGQ7PL4hOTcwA3pZQhsjqkPkWE="
