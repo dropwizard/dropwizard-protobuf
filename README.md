@@ -3,6 +3,8 @@ Dropwizard Protobuf
 [![Build Status](https://travis-ci.org/dropwizard/dropwizard-protobuf.svg?branch=master)](https://travis-ci.org/dropwizard/dropwizard-protobuf)
 [![Coverage Status](https://coveralls.io/repos/dropwizard/dropwizard-protobuf/badge.svg?branch=master)](https://coveralls.io/r/dropwizard/dropwizard-protobuf?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/io.dropwizard.modules/dropwizard-protobuf.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/io.dropwizard.modules/dropwizard-protobuf/)
+[![GitHub license](https://img.shields.io/github/license/dropwizard/dropwizard-protobuf.svg?style=flat-square)](https://github.com/dropwizard/dropwizard-protobuf/tree/master)
+
 
 `dropwizard-protobuf` is a [Jersey](https://jersey.java.net) [JAX-RS Entity Provider](https://jersey.java.net/documentation/latest/message-body-workers.html) that allows reading and writing messages in Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) format.
 
@@ -29,7 +31,7 @@ This project is available on Maven Central. To add it to your project simply add
 <dependency>
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>0.9.1-1</version>
+    <version>0.9.2-1</version>
 </dependency>
 ```
 
@@ -42,7 +44,7 @@ Please file bug reports and feature requests in [GitHub issues](https://github.c
 License
 -------
 
-Copyright (c) 2015 Justin Plock
+Copyright (c) 2016 Justin Plock
 
 This library is licensed under the Apache License, Version 2.0.
 
