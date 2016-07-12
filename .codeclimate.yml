@@ -9,3 +9,7 @@ engines:
 ratings:
   paths:
   - "**.java"
+
+exclude_paths:
+- "src/main/java/io/dropwizard/jersey/protobuf/protos/DropwizardProtos.java"
+- "src/test/java/io/dropwizard/jersey/protobuf/protos/DropwizardProtosTest.java"
