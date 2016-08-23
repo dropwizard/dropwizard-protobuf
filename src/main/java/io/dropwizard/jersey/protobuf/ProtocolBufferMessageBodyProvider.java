@@ -14,7 +14,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
-import com.google.protobuf.GeneratedMessage;
 import com.google.protobuf.Message;
 
 /**
@@ -41,8 +40,7 @@ public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Mess
 
         try {
             final Method newBuilder = type.getMethod("newBuilder");
-            final GeneratedMessage.Builder<?> builder = (GeneratedMessage.Builder<?>) newBuilder
-                    .invoke(type);
+            final Message.Builder builder = (Message.Builder)newBuilder.invoke(type);
             return builder.mergeFrom(entityStream).build();
         } catch (Exception e) {
             throw new WebApplicationException(e);
