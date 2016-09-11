@@ -6,7 +6,13 @@ package io.dropwizard.jersey.protobuf.protos;
 public final class DropwizardProtos {
   private DropwizardProtos() {}
   public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistryLite registry) {
+  }
+
+  public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface ErrorMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:dropwizard.ErrorMessage)
@@ -52,37 +58,30 @@ public final class DropwizardProtos {
   /**
    * Protobuf type {@code dropwizard.ErrorMessage}
    */
-  public static final class ErrorMessage extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class ErrorMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:dropwizard.ErrorMessage)
       ErrorMessageOrBuilder {
     // Use ErrorMessage.newBuilder() to construct.
-    private ErrorMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ErrorMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ErrorMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ErrorMessage defaultInstance;
-    public static ErrorMessage getDefaultInstance() {
-      return defaultInstance;
+    private ErrorMessage() {
+      message_ = "";
+      code_ = 500;
+      details_ = "";
     }
 
-    public ErrorMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
+    getUnknownFields() {
       return this.unknownFields;
     }
     private ErrorMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
@@ -124,7 +123,7 @@ public final class DropwizardProtos {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -135,31 +134,16 @@ public final class DropwizardProtos {
       return io.dropwizard.jersey.protobuf.protos.DropwizardProtos.internal_static_dropwizard_ErrorMessage_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return io.dropwizard.jersey.protobuf.protos.DropwizardProtos.internal_static_dropwizard_ErrorMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage.class, io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ErrorMessage> PARSER =
-        new com.google.protobuf.AbstractParser<ErrorMessage>() {
-      public ErrorMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ErrorMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ErrorMessage> getParserForType() {
-      return PARSER;
-    }
-
     private int bitField0_;
     public static final int MESSAGE_FIELD_NUMBER = 1;
-    private java.lang.Object message_;
+    private volatile java.lang.Object message_;
     /**
      * <code>required string message = 1;</code>
      */
@@ -216,7 +200,7 @@ public final class DropwizardProtos {
     }
 
     public static final int DETAILS_FIELD_NUMBER = 3;
-    private java.lang.Object details_;
+    private volatile java.lang.Object details_;
     /**
      * <code>optional string details = 3;</code>
      */
@@ -257,11 +241,6 @@ public final class DropwizardProtos {
       }
     }
 
-    private void initFields() {
-      message_ = "";
-      code_ = 500;
-      details_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -278,47 +257,91 @@ public final class DropwizardProtos {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getMessageBytes());
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeInt32(2, code_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getDetailsBytes());
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, details_);
       }
-      getUnknownFields().writeTo(output);
+      unknownFields.writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getMessageBytes());
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, code_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getDetailsBytes());
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, details_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage)) {
+        return super.equals(obj);
+      }
+      io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage other = (io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage) obj;
+
+      boolean result = true;
+      result = result && (hasMessage() == other.hasMessage());
+      if (hasMessage()) {
+        result = result && getMessage()
+            .equals(other.getMessage());
+      }
+      result = result && (hasCode() == other.hasCode());
+      if (hasCode()) {
+        result = result && (getCode()
+            == other.getCode());
+      }
+      result = result && (hasDetails() == other.hasDetails());
+      if (hasDetails()) {
+        result = result && getDetails()
+            .equals(other.getDetails());
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasMessage()) {
+        hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+        hash = (53 * hash) + getMessage().hashCode();
+      }
+      if (hasCode()) {
+        hash = (37 * hash) + CODE_FIELD_NUMBER;
+        hash = (53 * hash) + getCode();
+      }
+      if (hasDetails()) {
+        hash = (37 * hash) + DETAILS_FIELD_NUMBER;
+        hash = (53 * hash) + getDetails().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseFrom(
@@ -344,46 +367,57 @@ public final class DropwizardProtos {
     }
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -391,7 +425,7 @@ public final class DropwizardProtos {
      * Protobuf type {@code dropwizard.ErrorMessage}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:dropwizard.ErrorMessage)
         io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -399,7 +433,7 @@ public final class DropwizardProtos {
         return io.dropwizard.jersey.protobuf.protos.DropwizardProtos.internal_static_dropwizard_ErrorMessage_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return io.dropwizard.jersey.protobuf.protos.DropwizardProtos.internal_static_dropwizard_ErrorMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -412,18 +446,15 @@ public final class DropwizardProtos {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         message_ = "";
@@ -433,10 +464,6 @@ public final class DropwizardProtos {
         details_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -477,6 +504,32 @@ public final class DropwizardProtos {
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage) {
           return mergeFrom((io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage)other);
@@ -501,13 +554,13 @@ public final class DropwizardProtos {
           details_ = other.details_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasMessage()) {
-          
           return false;
         }
         return true;
@@ -522,7 +575,7 @@ public final class DropwizardProtos {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -715,29 +768,66 @@ public final class DropwizardProtos {
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:dropwizard.ErrorMessage)
     }
 
+    // @@protoc_insertion_point(class_scope:dropwizard.ErrorMessage)
+    private static final io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ErrorMessage(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage();
     }
 
-    // @@protoc_insertion_point(class_scope:dropwizard.ErrorMessage)
+    public static io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ErrorMessage>
+        PARSER = new com.google.protobuf.AbstractParser<ErrorMessage>() {
+      public ErrorMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ErrorMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ErrorMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ErrorMessage> getParserForType() {
+      return PARSER;
+    }
+
+    public io.dropwizard.jersey.protobuf.protos.DropwizardProtos.ErrorMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_dropwizard_ErrorMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_dropwizard_ErrorMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
@@ -761,7 +851,7 @@ public final class DropwizardProtos {
     internal_static_dropwizard_ErrorMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_dropwizard_ErrorMessage_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_dropwizard_ErrorMessage_descriptor,
         new java.lang.String[] { "Message", "Code", "Details", });
   }
