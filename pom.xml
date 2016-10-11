@@ -83,7 +83,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>1.0.2</dropwizard.version>
-        <protobuf.version>3.0.2</protobuf.version>
+        <protobuf.version>3.1.0</protobuf.version>
     </properties>
 
     <dependencyManagement>
@@ -242,7 +242,7 @@
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.2.0</version>
+                <version>4.3.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
