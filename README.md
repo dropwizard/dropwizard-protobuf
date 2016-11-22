@@ -12,7 +12,7 @@ Dropwizard Protobuf
 Usage
 -----
 
-Just add the `ProtocolBufferMessageBodyProvider` to your Dropwizard application inside the [`Application#run`](http://dropwizard.io/1.0.3/dropwizard-core/apidocs/io/dropwizard/Application.html#run(java.lang.String[])) method.
+Just add the `ProtocolBufferMessageBodyProvider` to your Dropwizard application inside the [`Application#run`](http://dropwizard.io/1.0.5/dropwizard-core/apidocs/io/dropwizard/Application.html#run(java.lang.String[])) method.
 
 ```java
 @Override
@@ -31,7 +31,7 @@ This project is available on Maven Central. To add it to your project simply add
 <dependency>
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>1.0.3-1</version>
+    <version>1.0.5-1</version>
 </dependency>
 ```
 
