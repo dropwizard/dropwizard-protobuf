@@ -12,13 +12,12 @@ Dropwizard Protobuf
 Usage
 -----
 
-Just add the `ProtocolBufferMessageBodyProvider` to your Dropwizard application inside the [`Application#run`](http://dropwizard.io/1.0.5/dropwizard-core/apidocs/io/dropwizard/Application.html#run(java.lang.String[])) method.
+Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.0.5/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
 
 ```java
 @Override
-public void run(HelloWorldConfiguration config, Environment environment) throws Exception {
-    environment.jersey().register(new ProtocolBufferMessageBodyProvider());
-    environment.jersey().register(new InvalidProtocolBufferExceptionMapper());
+public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
+    bootstrap.addBundle(new ProtobufBundle());
 }
 ```
 
