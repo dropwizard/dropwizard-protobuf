@@ -3,6 +3,7 @@ package io.dropwizard.jersey.protobuf;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -15,6 +16,7 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 import com.google.protobuf.Message;
+import com.google.protobuf.TextFormat;
 
 /**
  * A Jersey provider which enables using Protocol Buffers to parse request
@@ -22,9 +24,11 @@ import com.google.protobuf.Message;
  */
 @Provider
 @Consumes(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
-@Produces(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
+@Produces(ProtocolBufferMediaType.APPLICATION_PROTOBUF_AND_TEXT_FORMAT)
 public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Message>,
         MessageBodyWriter<Message> {
+
+    private final static String UTF8_ENCODING = "UTF-8";
 
     @Override
     public boolean isReadable(final Class<?> type, final Type genericType,
@@ -51,6 +55,16 @@ public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Mess
     public long getSize(final Message m, final Class<?> type,
             final Type genericType, final Annotation[] annotations,
             final MediaType mediaType) {
+        try {
+            if (mediaType.getSubtype().indexOf("text-format") > -1) {
+                String formatted = TextFormat.printToUnicodeString(m);
+                return formatted.getBytes(UTF8_ENCODING).length;
+            }
+        }
+        catch (UnsupportedEncodingException uee) {
+
+        }
+
         return m.getSerializedSize();
     }
 
@@ -66,6 +80,11 @@ public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Mess
             final MediaType mediaType,
             final MultivaluedMap<String, Object> httpHeaders,
             final OutputStream entityStream) throws IOException {
-        entityStream.write(m.toByteArray());
+        
+        if (mediaType.getSubtype().indexOf("text-format") > -1) {
+            entityStream.write(m.toString().getBytes(UTF8_ENCODING));
+        } else {
+            entityStream.write(m.toByteArray());
+        }
     }
 }
