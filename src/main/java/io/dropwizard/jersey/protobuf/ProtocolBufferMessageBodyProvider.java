@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -15,6 +16,7 @@ import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 import com.google.protobuf.Message;
+import com.google.protobuf.TextFormat;
 
 /**
  * A Jersey provider which enables using Protocol Buffers to parse request
@@ -22,9 +24,10 @@ import com.google.protobuf.Message;
  */
 @Provider
 @Consumes(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
-@Produces(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
-public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Message>,
-        MessageBodyWriter<Message> {
+@Produces({ ProtocolBufferMediaType.APPLICATION_PROTOBUF,
+        ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT })
+public class ProtocolBufferMessageBodyProvider
+        implements MessageBodyReader<Message>, MessageBodyWriter<Message> {
 
     @Override
     public boolean isReadable(final Class<?> type, final Type genericType,
@@ -40,7 +43,8 @@ public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Mess
 
         try {
             final Method newBuilder = type.getMethod("newBuilder");
-            final Message.Builder builder = (Message.Builder)newBuilder.invoke(type);
+            final Message.Builder builder = (Message.Builder) newBuilder
+                    .invoke(type);
             return builder.mergeFrom(entityStream).build();
         } catch (Exception e) {
             throw new WebApplicationException(e);
@@ -51,6 +55,12 @@ public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Mess
     public long getSize(final Message m, final Class<?> type,
             final Type genericType, final Annotation[] annotations,
             final MediaType mediaType) {
+
+        if (mediaType.getSubtype().contains("text-format")) {
+            final String formatted = TextFormat.printToUnicodeString(m);
+            return formatted.getBytes(StandardCharsets.UTF_8).length;
+        }
+
         return m.getSerializedSize();
     }
 
@@ -66,6 +76,11 @@ public class ProtocolBufferMessageBodyProvider implements MessageBodyReader<Mess
             final MediaType mediaType,
             final MultivaluedMap<String, Object> httpHeaders,
             final OutputStream entityStream) throws IOException {
-        entityStream.write(m.toByteArray());
+
+        if (mediaType.getSubtype().contains("text-format")) {
+            entityStream.write(m.toString().getBytes(StandardCharsets.UTF_8));
+        } else {
+            entityStream.write(m.toByteArray());
+        }
     }
 }
