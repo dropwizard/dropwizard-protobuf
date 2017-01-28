@@ -2,28 +2,20 @@ package io.dropwizard.jersey.protobuf;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.lang.annotation.Annotation;
-
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedHashMap;
-
 import org.glassfish.jersey.internal.util.collection.StringKeyIgnoreCaseMultivaluedMap;
 import org.junit.Test;
-
 import com.google.protobuf.Message;
-
-import io.dropwizard.jersey.protobuf.ProtocolBufferMessageBodyProvider;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example;
 
 public class ProtocolBufferMessageBodyProviderTest {
-    private static final Annotation[] NONE = new Annotation[0];
-    private final ProtocolBufferMessageBodyProvider provider
-                                  = new ProtocolBufferMessageBodyProvider();
-
-    public static Example example = Example.newBuilder().setId(1337L).build();
+    private final Annotation[] NONE = new Annotation[0];
+    private final ProtocolBufferMessageBodyProvider provider = new ProtocolBufferMessageBodyProvider();
+    private final Example example = Example.newBuilder().setId(1337L).build();
 
     @Test
     public void readsDeserializableTypes() throws Exception {
@@ -39,35 +31,31 @@ public class ProtocolBufferMessageBodyProviderTest {
 
     @Test
     public void deserializesRequestEntities() throws Exception {
-        final ByteArrayInputStream entity = new ByteArrayInputStream(example.toByteArray());
+        final ByteArrayInputStream entity = new ByteArrayInputStream(
+                example.toByteArray());
         final Class<?> klass = Example.class;
 
         final Object obj = provider.readFrom((Class<Message>) klass,
-                                             Example.class,
-                                             NONE,
-                                             ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
-                                             new MultivaluedHashMap<String,String>(),
-                                             entity);
+                Example.class, NONE,
+                ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
+                new MultivaluedHashMap<String, String>(), entity);
 
-        assertThat(obj)
-                .isInstanceOf(Example.class);
+        assertThat(obj).isInstanceOf(Example.class);
 
-        assertThat(((Example) obj).getId())
-                .isEqualTo(1337L);
+        assertThat(((Example) obj).getId()).isEqualTo(1337L);
     }
 
     @Test
-    public void throwsAWebApplicationExceptionForMalformedRequestEntities() throws Exception {
-        final ByteArrayInputStream entity = new ByteArrayInputStream("{\"id\":-1d".getBytes());
+    public void throwsAWebApplicationExceptionForMalformedRequestEntities()
+            throws Exception {
+        final ByteArrayInputStream entity = new ByteArrayInputStream(
+                "{\"id\":-1d".getBytes());
 
         try {
             final Class<?> klass = Example.class;
-            provider.readFrom((Class<Message>) klass,
-                              Example.class,
-                              NONE,
-                              ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
-                              new MultivaluedHashMap<String,String>(),
-                              entity);
+            provider.readFrom((Class<Message>) klass, Example.class, NONE,
+                    ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
+                    new MultivaluedHashMap<String, String>(), entity);
             failBecauseExceptionWasNotThrown(WebApplicationException.class);
         } catch (WebApplicationException e) {
             assertThat(e.getMessage())
@@ -81,28 +69,45 @@ public class ProtocolBufferMessageBodyProviderTest {
 
         final Example example = Example.newBuilder().setId(1L).build();
 
-        provider.writeTo(example,
-                         Example.class,
-                         Example.class,
-                         NONE,
-                         ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
-                         new StringKeyIgnoreCaseMultivaluedMap<>(),
-                         output);
+        provider.writeTo(example, Example.class, Example.class, NONE,
+                ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
+                new StringKeyIgnoreCaseMultivaluedMap<>(), output);
 
-        assertThat(output.toByteArray())
-                .isEqualTo(example.toByteArray());
+        assertThat(output.toByteArray()).isEqualTo(example.toByteArray());
     }
-    
+
+    @Test
+    public void serializesResponseTextEntities() throws Exception {
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        final Example example = Example.newBuilder().setId(1L).build();
+
+        provider.writeTo(example, Example.class, Example.class, NONE,
+                ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT_TYPE,
+                new StringKeyIgnoreCaseMultivaluedMap<>(), output);
+
+        assertThat(output.toString()).isEqualTo("id: 1\n");
+    }
+
     @Test
     public void responseEntitySize() throws Exception {
         final Example example = Example.newBuilder().setId(1L).build();
 
-        final long size = provider.getSize(example,
-                                           Example.class,
-                                           Example.class,
-                                           NONE,
-                                           ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE);
+        final long size = provider.getSize(example, Example.class,
+                Example.class, NONE,
+                ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE);
 
         assertThat(size).isEqualTo(2L);
+    }
+
+    @Test
+    public void responseTextEntitySize() throws Exception {
+        final Example example = Example.newBuilder().setId(1L).build();
+
+        final long size = provider.getSize(example, Example.class,
+                Example.class, NONE,
+                ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT_TYPE);
+
+        assertThat(size).isEqualTo(6L);
     }
 }
