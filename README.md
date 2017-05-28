@@ -6,13 +6,13 @@ Dropwizard Protobuf
 [![GitHub license](https://img.shields.io/github/license/dropwizard/dropwizard-protobuf.svg?style=flat-square)](https://github.com/dropwizard/dropwizard-protobuf/tree/master)
 
 
-`dropwizard-protobuf` is a [Jersey](https://jersey.java.net) [JAX-RS Entity Provider](https://jersey.java.net/documentation/latest/message-body-workers.html) that allows reading and writing messages in Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) format.
+`dropwizard-protobuf` is a [Jersey](https://jersey.github.io) [JAX-RS Entity Provider](https://jersey.github.io/documentation/latest/message-body-workers.html) that allows reading and writing messages in Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) format.
 
 
 Usage
 -----
 
-Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.0.6/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
+Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.1.1/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
 
 ```java
 @Override
@@ -30,7 +30,7 @@ This project is available on Maven Central. To add it to your project simply add
 <dependency>
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>1.0.6-1</version>
+    <version>1.1.1-1</version>
 </dependency>
 ```
 
