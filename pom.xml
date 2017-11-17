@@ -210,7 +210,7 @@
                             <compilerArgs>
                                 <arg>-XepDisableWarningsInGeneratedCode</arg>
                                 <arg>-Xep:NullAway:ERROR</arg>
-                                <arg>-XepOpt:NullAway:AnnotatedPackages=io.smoketurner.notification</arg>
+                                <arg>-XepOpt:NullAway:AnnotatedPackages=io.dropwizard.jersey.protobuf</arg>
                             </compilerArgs>
                         </configuration>
                         <dependencies>
