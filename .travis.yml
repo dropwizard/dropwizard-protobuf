@@ -1,20 +1,33 @@
 sudo: false
 dist: trusty
 language: java
-jdk:
-  - oraclejdk8
+before_install:
+  - ulimit -c unlimited -S
+  - mvn -N io.takari:maven:wrapper
 after_success:
   - bash .travis_after_success.sh
 cache:
   directories:
     - $HOME/.m2
 
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+matrix:
+  include:
+    - os: linux
+      jdk: oraclejdk8
+      addons:
+        apt:
+          packages:
+            - oracle-java8-installer
+    - os: linux
+      jdk: oraclejdk9
+      addons:
+        apt:
+          packages:
+            - oracle-java9-installer
 
 env:
   global:
+    # CI_DEPLOY_USERNAME
     - secure: "brHZc6AaCVg7voivK3ssi8N+3Id+STnRE0WQ9HfPRYApearIR9U05Su/icAiwFB8uFyv/TMclR4FygWuj7A9cnH2YT5XCBIsffMYu7E/+86zDfX/+7yIfxLJDLQ4A3AWCrIQ4VBTdaOnrqbGiVGQ7PL4hOTcwA3pZQhsjqkPkWE="
+    # CI_DEPLOY_PASSWORD
     - secure: "T/qwRIqaFqVwcEHLGnGHbTwBpWp5B5rLTO8+cLri4MZ1lVx9i6qwB8qPAcSKA2wBKl7gXiOFdmxQeCmZ9lwwWNEJgdHhpUwR5fS85ahNU4dSkrPhJIW4thnbFLYFyNTmq+RQALIK+DdkJ0t+cj4llEbEjjWXfNBU/Uv9eIpiSFo="
