@@ -211,6 +211,7 @@
                                 <arg>-XepDisableWarningsInGeneratedCode</arg>
                                 <arg>-Xep:NullAway:ERROR</arg>
                                 <arg>-XepOpt:NullAway:AnnotatedPackages=io.dropwizard.jersey.protobuf</arg>
+                                <arg>-XepOpt:NullAway:UnannotatedSubPackages=io.dropwizard.jersey.protobuf.protos</arg>
                             </compilerArgs>
                         </configuration>
                         <dependencies>
