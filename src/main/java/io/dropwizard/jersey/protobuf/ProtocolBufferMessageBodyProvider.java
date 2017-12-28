@@ -50,6 +50,7 @@ public class ProtocolBufferMessageBodyProvider
             Method newBuilder = newBuilderMethodCache.get(type);
             if (newBuilder == null) {
                 newBuilder = type.getMethod("newBuilder");
+                newBuilderMethodCache.put(type, newBuilder);
             }
             final Message.Builder builder = (Message.Builder) newBuilder
                     .invoke(type);
