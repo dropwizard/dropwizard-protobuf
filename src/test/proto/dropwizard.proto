@@ -9,3 +9,7 @@ option optimize_for = SPEED;
 message Example {
   int64 id = 1;
 };
+
+message Example2 {
+  string name = 1;
+};
