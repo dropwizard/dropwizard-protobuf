@@ -43,7 +43,7 @@ Please file bug reports and feature requests in [GitHub issues](https://github.c
 License
 -------
 
-Copyright (c) 2017 Justin Plock
+Copyright (c) 2018 Justin Plock
 
 This library is licensed under the Apache License, Version 2.0.
 
