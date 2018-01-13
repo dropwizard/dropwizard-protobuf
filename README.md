@@ -1,7 +1,7 @@
 Dropwizard Protobuf
 ===================
 [![Build Status](https://travis-ci.org/dropwizard/dropwizard-protobuf.svg?branch=master)](https://travis-ci.org/dropwizard/dropwizard-protobuf)
-[![Coverage Status](https://coveralls.io/repos/dropwizard/dropwizard-protobuf/badge.svg?branch=master)](https://coveralls.io/r/dropwizard/dropwizard-protobuf?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/dropwizard/dropwizard-protobuf/badge.svg?branch=master)](https://coveralls.io/github/dropwizard/dropwizard-protobuf?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/io.dropwizard.modules/dropwizard-protobuf.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/io.dropwizard.modules/dropwizard-protobuf/)
 [![GitHub license](https://img.shields.io/github/license/dropwizard/dropwizard-protobuf.svg?style=flat-square)](https://github.com/dropwizard/dropwizard-protobuf/tree/master)
 
@@ -30,7 +30,7 @@ This project is available on Maven Central. To add it to your project simply add
 <dependency>
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>1.2.2-1</version>
+    <version>1.2.2-2</version>
 </dependency>
 ```
 
