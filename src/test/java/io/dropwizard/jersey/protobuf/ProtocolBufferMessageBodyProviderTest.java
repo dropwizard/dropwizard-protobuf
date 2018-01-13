@@ -18,7 +18,8 @@ public class ProtocolBufferMessageBodyProviderTest {
     private final Annotation[] NONE = new Annotation[0];
     private final ProtocolBufferMessageBodyProvider provider = new ProtocolBufferMessageBodyProvider();
     private final Example example = Example.newBuilder().setId(1337L).build();
-    private final Example2 example2 = Example2.newBuilder().setName("example").build();
+    private final Example2 example2 = Example2.newBuilder().setName("example")
+            .build();
 
     @Test
     public void readsDeserializableTypes() throws Exception {
@@ -34,23 +35,26 @@ public class ProtocolBufferMessageBodyProviderTest {
 
     @Test
     public void deserializesRequestEntities() throws Exception {
-        final Object actualExample1 = readFrom(provider,
-                Example.class,
+        final Object actualExample1 = readFrom(provider, Example.class,
                 new ByteArrayInputStream(example.toByteArray()));
         assertThat(actualExample1).isInstanceOf(Example.class);
         assertThat(((Example) actualExample1).getId()).isEqualTo(1337L);
 
-        final Object actualExample2 = readFrom(provider,
-                Example2.class,
+        final Object actualExample2 = readFrom(provider, Example.class,
+                new ByteArrayInputStream(example.toByteArray()));
+        assertThat(actualExample2).isInstanceOf(Example.class);
+        assertThat(((Example) actualExample2).getId()).isEqualTo(1337L);
+
+        final Object actualExample3 = readFrom(provider, Example2.class,
                 new ByteArrayInputStream(example2.toByteArray()));
-        assertThat(actualExample2).isInstanceOf(Example2.class);
-        assertThat(((Example2) actualExample2).getName()).isEqualTo("example");
+        assertThat(actualExample3).isInstanceOf(Example2.class);
+        assertThat(((Example2) actualExample3).getName()).isEqualTo("example");
     }
 
-    private Object readFrom(ProtocolBufferMessageBodyProvider provider, Class<?> clazz, ByteArrayInputStream entity) throws IOException {
-        final Object obj = provider.readFrom((Class<Message>) clazz,
-                clazz, NONE,
-                ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
+    private Object readFrom(ProtocolBufferMessageBodyProvider provider,
+            Class<?> clazz, ByteArrayInputStream entity) throws IOException {
+        final Object obj = provider.readFrom((Class<Message>) clazz, clazz,
+                NONE, ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
                 new MultivaluedHashMap<String, String>(), entity);
         return obj;
     }

@@ -9,7 +9,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -31,8 +30,8 @@ import com.google.protobuf.TextFormat;
         ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT })
 public class ProtocolBufferMessageBodyProvider
         implements MessageBodyReader<Message>, MessageBodyWriter<Message> {
-    
-    private final Map<Class<Message>, Method> newBuilderMethodCache = new ConcurrentHashMap<>();
+
+    private final Map<Class<Message>, Method> methodCache = new ConcurrentHashMap<>();
 
     @Override
     public boolean isReadable(final Class<?> type, final Type genericType,
@@ -47,11 +46,15 @@ public class ProtocolBufferMessageBodyProvider
             final InputStream entityStream) throws IOException {
 
         try {
-            Method newBuilder = newBuilderMethodCache.get(type);
-            if (newBuilder == null) {
-                newBuilder = type.getMethod("newBuilder");
-                newBuilderMethodCache.put(type, newBuilder);
-            }
+
+            final Method newBuilder = methodCache.computeIfAbsent(type, t -> {
+                try {
+                    return t.getMethod("newBuilder");
+                } catch (Exception e) {
+                    return null;
+                }
+            });
+
             final Message.Builder builder = (Message.Builder) newBuilder
                     .invoke(type);
             return builder.mergeFrom(entityStream).build();
