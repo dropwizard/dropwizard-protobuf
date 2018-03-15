@@ -12,7 +12,7 @@ Dropwizard Protobuf
 Usage
 -----
 
-Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.2.2/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
+Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.3.0/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
 
 ```java
 @Override
@@ -30,7 +30,7 @@ This project is available on Maven Central. To add it to your project simply add
 <dependency>
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>1.2.3-2</version>
+    <version>1.3.0-1</version>
 </dependency>
 ```
 
