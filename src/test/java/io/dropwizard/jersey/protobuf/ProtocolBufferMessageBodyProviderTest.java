@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.nio.charset.StandardCharsets;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedHashMap;
 import org.glassfish.jersey.internal.util.collection.StringKeyIgnoreCaseMultivaluedMap;
@@ -63,7 +64,7 @@ public class ProtocolBufferMessageBodyProviderTest {
     public void throwsAWebApplicationExceptionForMalformedRequestEntities()
             throws Exception {
         final ByteArrayInputStream entity = new ByteArrayInputStream(
-                "{\"id\":-1d".getBytes());
+                "{\"id\":-1d".getBytes(StandardCharsets.UTF_8));
 
         try {
             final Class<?> klass = Example.class;
