@@ -46,7 +46,6 @@ public class ProtocolBufferMessageBodyProvider
             final InputStream entityStream) throws IOException {
 
         try {
-
             final Method newBuilder = methodCache.computeIfAbsent(type, t -> {
                 try {
                     return t.getMethod("newBuilder");
@@ -92,7 +91,7 @@ public class ProtocolBufferMessageBodyProvider
         if (mediaType.getSubtype().contains("text-format")) {
             entityStream.write(m.toString().getBytes(StandardCharsets.UTF_8));
         } else {
-            entityStream.write(m.toByteArray());
+            m.writeTo(entityStream);
         }
     }
 }
