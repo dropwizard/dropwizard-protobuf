@@ -2,6 +2,7 @@ package io.dropwizard.jersey.protobuf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -25,7 +26,8 @@ import com.google.protobuf.TextFormat;
  * entities into objects and generate response entities from objects.
  */
 @Provider
-@Consumes(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
+@Consumes({ProtocolBufferMediaType.APPLICATION_PROTOBUF,
+        ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT })
 @Produces({ ProtocolBufferMediaType.APPLICATION_PROTOBUF,
         ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT })
 public class ProtocolBufferMessageBodyProvider
@@ -56,7 +58,13 @@ public class ProtocolBufferMessageBodyProvider
 
             final Message.Builder builder = (Message.Builder) newBuilder
                     .invoke(type);
-            return builder.mergeFrom(entityStream).build();
+            if (mediaType.getSubtype().contains("text-format")) {
+                TextFormat.merge(new InputStreamReader(entityStream, StandardCharsets.UTF_8),
+                    builder);
+                return builder.build();
+            } else {
+                return builder.mergeFrom(entityStream).build();
+            }
         } catch (Exception e) {
             throw new WebApplicationException(e);
         }
