@@ -63,21 +63,21 @@ public class ProtocolBufferMessageBodyProviderTest {
     @Test
     public void deserializesRequestTextEntities() throws Exception {
         final Object actualExample1 = readStringFrom(provider, Example.class,
-            new ByteArrayInputStream(example.toString().getBytes()));
+                new ByteArrayInputStream(example.toString().getBytes()));
         assertThat(actualExample1).isInstanceOf(Example.class);
         assertThat(((Example) actualExample1).getId()).isEqualTo(1337L);
 
         final Object actualExample2 = readFrom(provider, Example2.class,
-            new ByteArrayInputStream(example2.toByteArray()));
+                new ByteArrayInputStream(example2.toByteArray()));
         assertThat(actualExample2).isInstanceOf(Example2.class);
         assertThat(((Example2) actualExample2).getName()).isEqualTo("example");
     }
 
     private Object readStringFrom(ProtocolBufferMessageBodyProvider provider,
-        Class<?> clazz, ByteArrayInputStream entity) throws IOException {
+            Class<?> clazz, ByteArrayInputStream entity) throws IOException {
         final Object obj = provider.readFrom((Class<Message>) clazz, clazz,
-            NONE, ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT_TYPE,
-            new MultivaluedHashMap<String, String>(), entity);
+                NONE, ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT_TYPE,
+                new MultivaluedHashMap<String, String>(), entity);
         return obj;
     }
 
