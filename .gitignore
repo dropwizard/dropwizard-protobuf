@@ -4,3 +4,4 @@
 .settings
 target
 release.properties
+.apt_generated_tests

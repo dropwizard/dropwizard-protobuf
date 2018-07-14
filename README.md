@@ -1,7 +1,6 @@
 Dropwizard Protobuf
 ===================
 [![Build Status](https://travis-ci.org/dropwizard/dropwizard-protobuf.svg?branch=master)](https://travis-ci.org/dropwizard/dropwizard-protobuf)
-[![Coverage Status](https://coveralls.io/repos/github/dropwizard/dropwizard-protobuf/badge.svg?branch=master)](https://coveralls.io/github/dropwizard/dropwizard-protobuf?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/io.dropwizard.modules/dropwizard-protobuf.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/io.dropwizard.modules/dropwizard-protobuf/)
 [![GitHub license](https://img.shields.io/github/license/dropwizard/dropwizard-protobuf.svg?style=flat-square)](https://github.com/dropwizard/dropwizard-protobuf/tree/master)
 
@@ -12,7 +11,7 @@ Dropwizard Protobuf
 Usage
 -----
 
-Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.3.4/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
+Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](http://www.dropwizard.io/1.3.5/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
 
 ```java
 @Override
