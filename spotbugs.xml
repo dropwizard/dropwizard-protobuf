@@ -15,4 +15,8 @@
     limitations under the License.
 
 -->
-<FindBugsFilter/>
+<FindBugsFilter>
+    <Match>
+        <Package name="~io\.dropwizard\.jersey\.protobuf\.protos.*" />
+    </Match>
+</FindBugsFilter>

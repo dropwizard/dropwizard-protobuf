@@ -25,22 +25,22 @@ import java.time.ZonedDateTime;
 
 public class Converters {
 
-  public static Converter<Timestamp, Instant> toInstantUTC =
+  public static final Converter<Timestamp, Instant> toInstantUTC =
       Converter.from(
           t -> Instant.ofEpochSecond(t.getSeconds(), t.getNanos()),
           i -> Timestamp.newBuilder().setSeconds(i.getEpochSecond()).setNanos(i.getNano()).build());
 
-  public static Converter<Timestamp, OffsetDateTime> toOffsetDateTimeUTC =
+  public static final Converter<Timestamp, OffsetDateTime> toOffsetDateTimeUTC =
       Converter.from(
           t -> toInstantUTC.convert(t).atOffset(ZoneOffset.UTC),
           o -> toInstantUTC.reverse().convert(o.toInstant()));
 
-  public static Converter<Timestamp, ZonedDateTime> toZonedDateTimeUTC =
+  public static final Converter<Timestamp, ZonedDateTime> toZonedDateTimeUTC =
       Converter.from(
           t -> toOffsetDateTimeUTC.convert(t).toZonedDateTime(),
           z -> toOffsetDateTimeUTC.reverse().convert(z.toOffsetDateTime()));
 
-  public static Converter<com.google.protobuf.Duration, Duration> toDuration =
+  public static final Converter<com.google.protobuf.Duration, Duration> toDuration =
       Converter.from(
           d -> Duration.ofSeconds(d.getSeconds(), d.getNanos()),
           d ->
