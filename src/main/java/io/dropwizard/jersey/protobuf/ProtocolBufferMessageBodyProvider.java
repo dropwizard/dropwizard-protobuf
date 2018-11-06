@@ -73,27 +73,28 @@ public class ProtocolBufferMessageBodyProvider
       final InputStream entityStream)
       throws IOException {
 
-    try {
-      final Method newBuilder =
-          methodCache.computeIfAbsent(
-              type,
-              t -> {
-                try {
-                  return t.getMethod("newBuilder");
-                } catch (Exception e) {
-                  return null;
-                }
-              });
+    final Method newBuilder =
+        methodCache.computeIfAbsent(
+            type,
+            t -> {
+              try {
+                return t.getMethod("newBuilder");
+              } catch (Exception e) {
+                return null;
+              }
+            });
 
-      final Message.Builder builder = (Message.Builder) newBuilder.invoke(type);
-      if (mediaType.getSubtype().contains("text-format")) {
-        TextFormat.merge(new InputStreamReader(entityStream, StandardCharsets.UTF_8), builder);
-        return builder.build();
-      } else {
-        return builder.mergeFrom(entityStream).build();
-      }
+    final Message.Builder builder;
+    try {
+      builder = (Message.Builder) newBuilder.invoke(type);
     } catch (Exception e) {
       throw new WebApplicationException(e);
+    }
+    if (mediaType.getSubtype().contains("text-format")) {
+      TextFormat.merge(new InputStreamReader(entityStream, StandardCharsets.UTF_8), builder);
+      return builder.build();
+    } else {
+      return builder.mergeFrom(entityStream).build();
     }
   }
 
