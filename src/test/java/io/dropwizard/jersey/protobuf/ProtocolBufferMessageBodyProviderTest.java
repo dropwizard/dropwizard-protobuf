@@ -18,6 +18,7 @@ package io.dropwizard.jersey.protobuf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example2;
@@ -26,7 +27,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedHashMap;
 import org.glassfish.jersey.internal.util.collection.StringKeyIgnoreCaseMultivaluedMap;
 import org.junit.Test;
@@ -111,7 +111,7 @@ public class ProtocolBufferMessageBodyProviderTest {
   }
 
   @Test
-  public void throwsAWebApplicationExceptionForMalformedRequestEntities() throws Exception {
+  public void throwsInvalidProtocolBufferExceptionForMalformedRequestEntities() throws Exception {
     final ByteArrayInputStream entity =
         new ByteArrayInputStream("{\"id\":-1d".getBytes(StandardCharsets.UTF_8));
 
@@ -124,9 +124,8 @@ public class ProtocolBufferMessageBodyProviderTest {
           ProtocolBufferMediaType.APPLICATION_PROTOBUF_TYPE,
           new MultivaluedHashMap<String, String>(),
           entity);
-      failBecauseExceptionWasNotThrown(WebApplicationException.class);
-    } catch (WebApplicationException e) {
-      assertThat(e.getMessage()).startsWith("HTTP 500 Internal Server Error");
+      failBecauseExceptionWasNotThrown(InvalidProtocolBufferException.class);
+    } catch (InvalidProtocolBufferException e) {
     }
   }
 
