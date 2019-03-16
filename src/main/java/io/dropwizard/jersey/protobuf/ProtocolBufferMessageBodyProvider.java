@@ -15,8 +15,10 @@
  */
 package io.dropwizard.jersey.protobuf;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.TextFormat;
+import com.google.protobuf.util.JsonFormat;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,11 +45,13 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Consumes({
   ProtocolBufferMediaType.APPLICATION_PROTOBUF,
-  ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT
+  ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT,
+  ProtocolBufferMediaType.APPLICATION_PROTOBUF_JSON
 })
 @Produces({
   ProtocolBufferMediaType.APPLICATION_PROTOBUF,
-  ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT
+  ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT,
+  ProtocolBufferMediaType.APPLICATION_PROTOBUF_JSON
 })
 public class ProtocolBufferMessageBodyProvider
     implements MessageBodyReader<Message>, MessageBodyWriter<Message> {
@@ -90,8 +94,13 @@ public class ProtocolBufferMessageBodyProvider
     } catch (Exception e) {
       throw new WebApplicationException(e);
     }
+
     if (mediaType.getSubtype().contains("text-format")) {
       TextFormat.merge(new InputStreamReader(entityStream, StandardCharsets.UTF_8), builder);
+      return builder.build();
+    } else if (mediaType.getSubtype().contains("json-format")) {
+      JsonFormat.parser()
+          .merge(new InputStreamReader(entityStream, StandardCharsets.UTF_8), builder);
       return builder.build();
     } else {
       return builder.mergeFrom(entityStream).build();
@@ -109,6 +118,14 @@ public class ProtocolBufferMessageBodyProvider
     if (mediaType.getSubtype().contains("text-format")) {
       final String formatted = TextFormat.printToUnicodeString(m);
       return formatted.getBytes(StandardCharsets.UTF_8).length;
+    } else if (mediaType.getSubtype().contains("json-format")) {
+      try {
+        final String formatted = JsonFormat.printer().omittingInsignificantWhitespace().print(m);
+        return formatted.getBytes(StandardCharsets.UTF_8).length;
+      } catch (InvalidProtocolBufferException e) {
+        // invalid protocol message
+        return -1L;
+      }
     }
 
     return m.getSerializedSize();
@@ -136,6 +153,9 @@ public class ProtocolBufferMessageBodyProvider
 
     if (mediaType.getSubtype().contains("text-format")) {
       entityStream.write(m.toString().getBytes(StandardCharsets.UTF_8));
+    } else if (mediaType.getSubtype().contains("json-format")) {
+      final String formatted = JsonFormat.printer().omittingInsignificantWhitespace().print(m);
+      entityStream.write(formatted.getBytes(StandardCharsets.UTF_8));
     } else {
       m.writeTo(entityStream);
     }

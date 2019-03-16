@@ -111,6 +111,36 @@ public class ProtocolBufferMessageBodyProviderTest {
   }
 
   @Test
+  public void deserializesRequestJsonEntities() throws Exception {
+    final Object actualExample1 =
+        readJsonFrom(
+            provider,
+            Example.class,
+            new ByteArrayInputStream("{\"id\":\"1337\"}".getBytes(StandardCharsets.UTF_8)));
+    assertThat(actualExample1).isInstanceOf(Example.class);
+    assertThat(((Example) actualExample1).getId()).isEqualTo(1337L);
+
+    final Object actualExample2 =
+        readFrom(provider, Example2.class, new ByteArrayInputStream(example2.toByteArray()));
+    assertThat(actualExample2).isInstanceOf(Example2.class);
+    assertThat(((Example2) actualExample2).getName()).isEqualTo("example");
+  }
+
+  private Object readJsonFrom(
+      ProtocolBufferMessageBodyProvider provider, Class<?> clazz, ByteArrayInputStream entity)
+      throws IOException {
+    final Object obj =
+        provider.readFrom(
+            (Class<Message>) clazz,
+            clazz,
+            NONE,
+            ProtocolBufferMediaType.APPLICATION_PROTOBUF_JSON_TYPE,
+            new MultivaluedHashMap<String, String>(),
+            entity);
+    return obj;
+  }
+
+  @Test
   public void throwsInvalidProtocolBufferExceptionForMalformedRequestEntities() throws Exception {
     final ByteArrayInputStream entity =
         new ByteArrayInputStream("{\"id\":-1d".getBytes(StandardCharsets.UTF_8));
@@ -166,6 +196,24 @@ public class ProtocolBufferMessageBodyProviderTest {
   }
 
   @Test
+  public void serializesResponseJsonEntities() throws Exception {
+    final ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+    final Example example = Example.newBuilder().setId(1L).build();
+
+    provider.writeTo(
+        example,
+        Example.class,
+        Example.class,
+        NONE,
+        ProtocolBufferMediaType.APPLICATION_PROTOBUF_JSON_TYPE,
+        new StringKeyIgnoreCaseMultivaluedMap<>(),
+        output);
+
+    assertThat(output.toString()).isEqualTo("{\"id\":\"1\"}");
+  }
+
+  @Test
   public void responseEntitySize() throws Exception {
     final Example example = Example.newBuilder().setId(1L).build();
 
@@ -193,5 +241,20 @@ public class ProtocolBufferMessageBodyProviderTest {
             ProtocolBufferMediaType.APPLICATION_PROTOBUF_TEXT_TYPE);
 
     assertThat(size).isEqualTo(6L);
+  }
+
+  @Test
+  public void responseJsonEntitySize() throws Exception {
+    final Example example = Example.newBuilder().setId(1L).build();
+
+    final long size =
+        provider.getSize(
+            example,
+            Example.class,
+            Example.class,
+            NONE,
+            ProtocolBufferMediaType.APPLICATION_PROTOBUF_JSON_TYPE);
+
+    assertThat(size).isEqualTo(10L);
   }
 }
