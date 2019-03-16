@@ -28,7 +28,7 @@ public class ProtobufBundle implements Bundle {
 
   @Override
   public void run(Environment environment) {
-    environment.jersey().register(new ProtocolBufferMessageBodyProvider());
-    environment.jersey().register(new InvalidProtocolBufferExceptionMapper());
+    environment.jersey().register(ProtocolBufferMessageBodyProvider.class);
+    environment.jersey().register(InvalidProtocolBufferExceptionMapper.class);
   }
 }
