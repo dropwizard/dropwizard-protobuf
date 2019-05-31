@@ -17,6 +17,9 @@ package io.dropwizard.jersey.protobuf;
 
 import com.google.common.base.Converter;
 import com.google.protobuf.Timestamp;
+import com.google.protobuf.util.Durations;
+import com.google.protobuf.util.Timestamps;
+import java.text.ParseException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.OffsetDateTime;
@@ -24,6 +27,17 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 public class Converters {
+
+  public static final Converter<Timestamp, String> toStringUTC =
+      Converter.from(
+          Timestamps::toString,
+          s -> {
+            try {
+              return Timestamps.parse(s);
+            } catch (ParseException e) {
+              return null;
+            }
+          });
 
   public static final Converter<Timestamp, Instant> toInstantUTC =
       Converter.from(
@@ -48,4 +62,15 @@ public class Converters {
                   .setSeconds(d.getSeconds())
                   .setNanos(d.getNano())
                   .build());
+
+  public static final Converter<com.google.protobuf.Duration, String> toDurationString =
+      Converter.from(
+          Durations::toString,
+          s -> {
+            try {
+              return Durations.parse(s);
+            } catch (ParseException e) {
+              return null;
+            }
+          });
 }

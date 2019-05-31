@@ -27,6 +27,28 @@ import org.junit.Test;
 public class ConvertersTest {
 
   @Test
+  public void testToString() {
+    final Timestamp timestamp =
+        Timestamp.newBuilder().setSeconds(1515761132).setNanos(123000000).build();
+
+    final String actual = Converters.toStringUTC.convert(timestamp);
+    final String expected = "2018-01-12T12:45:32.123Z";
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testFromString() {
+    final String instant = "2018-01-12T12:45:32.123Z";
+
+    final Timestamp actual = Converters.toStringUTC.reverse().convert(instant);
+    final Timestamp expected =
+        Timestamp.newBuilder().setSeconds(1515761132).setNanos(123000000).build();
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
   public void testToInstant() {
     final Timestamp timestamp =
         Timestamp.newBuilder().setSeconds(1515761132).setNanos(123000000).build();
@@ -108,6 +130,29 @@ public class ConvertersTest {
     final Duration duration = Duration.parse("PT20.345S");
 
     final com.google.protobuf.Duration actual = Converters.toDuration.reverse().convert(duration);
+    final com.google.protobuf.Duration expected =
+        com.google.protobuf.Duration.newBuilder().setSeconds(20).setNanos(345_000_000).build();
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testToDurationString() {
+    final com.google.protobuf.Duration duration =
+        com.google.protobuf.Duration.newBuilder().setSeconds(20).setNanos(345_000_000).build();
+
+    final String actual = Converters.toDurationString.convert(duration);
+    final String expected = "20.345s";
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testFromDurationString() {
+    final String duration = "20.345s";
+
+    final com.google.protobuf.Duration actual =
+        Converters.toDurationString.reverse().convert(duration);
     final com.google.protobuf.Duration expected =
         com.google.protobuf.Duration.newBuilder().setSeconds(20).setNanos(345_000_000).build();
 
