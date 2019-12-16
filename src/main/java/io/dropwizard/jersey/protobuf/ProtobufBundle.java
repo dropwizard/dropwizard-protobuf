@@ -15,11 +15,12 @@
  */
 package io.dropwizard.jersey.protobuf;
 
-import io.dropwizard.Bundle;
+import io.dropwizard.Configuration;
+import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-public class ProtobufBundle implements Bundle {
+public class ProtobufBundle<C extends Configuration> implements ConfiguredBundle<C> {
 
   @Override
   public void initialize(Bootstrap<?> bootstrap) {
@@ -27,7 +28,7 @@ public class ProtobufBundle implements Bundle {
   }
 
   @Override
-  public void run(Environment environment) {
+  public void run(C configuration, Environment environment) {
     environment.jersey().register(ProtocolBufferMessageBodyProvider.class);
     environment.jersey().register(InvalidProtocolBufferExceptionMapper.class);
   }
