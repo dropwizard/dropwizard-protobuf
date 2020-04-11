@@ -11,7 +11,7 @@ Dropwizard Protobuf
 Usage
 -----
 
-Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](https://www.dropwizard.io/1.3.12/dropwizard-core/apidocs/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
+Just add the `ProtocolBundle` to your Dropwizard application inside the [`Application#initialize`](https://javadoc.io/static/io.dropwizard/dropwizard-project/2.0.7/io/dropwizard/Application.html#initialize-io.dropwizard.setup.Bootstrap-) method.
 
 ```java
 @Override
@@ -29,7 +29,7 @@ This project is available on Maven Central. To add it to your project simply add
 <dependency>
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>1.3.12-1</version>
+    <version>2.0.7-1</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ Please file bug reports and feature requests in [GitHub issues](https://github.c
 License
 -------
 
-Copyright (c) 2019 Smoke Turner, LLC
+Copyright (c) 2020 Smoke Turner, LLC
 
 This library is licensed under the Apache License, Version 2.0.
 
