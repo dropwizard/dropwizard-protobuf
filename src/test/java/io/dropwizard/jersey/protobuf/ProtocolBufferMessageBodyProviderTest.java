@@ -22,6 +22,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example2;
+import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.ExampleNewVersion;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class ProtocolBufferMessageBodyProviderTest {
       new ProtocolBufferMessageBodyProvider();
   private final Example example = Example.newBuilder().setId(1337L).build();
   private final Example2 example2 = Example2.newBuilder().setName("example").build();
+  private final ExampleNewVersion exampleNewVersion =
+      ExampleNewVersion.newBuilder().setId(1337L).setNewValidField("example").build();
 
   @Test
   public void readsDeserializableTypes() throws Exception {
@@ -64,6 +67,21 @@ public class ProtocolBufferMessageBodyProviderTest {
         readFrom(provider, Example2.class, new ByteArrayInputStream(example2.toByteArray()));
     assertThat(actualExample3).isInstanceOf(Example2.class);
     assertThat(((Example2) actualExample3).getName()).isEqualTo("example");
+
+    final Object actualExample4 =
+        readFrom(
+            provider,
+            ExampleNewVersion.class,
+            new ByteArrayInputStream(exampleNewVersion.toByteArray()));
+    assertThat(actualExample4).isInstanceOf(ExampleNewVersion.class);
+    assertThat(((ExampleNewVersion) actualExample4).getId()).isEqualTo(1337L);
+    assertThat(((ExampleNewVersion) actualExample4).getNewValidField()).isEqualTo("example");
+
+    final Object actualExample5 =
+        readFrom(
+            provider, Example.class, new ByteArrayInputStream(exampleNewVersion.toByteArray()));
+    assertThat(actualExample5).isInstanceOf(Example.class);
+    assertThat(((Example) actualExample5).getId()).isEqualTo(1337L);
   }
 
   private Object readFrom(
@@ -121,9 +139,33 @@ public class ProtocolBufferMessageBodyProviderTest {
     assertThat(((Example) actualExample1).getId()).isEqualTo(1337L);
 
     final Object actualExample2 =
-        readFrom(provider, Example2.class, new ByteArrayInputStream(example2.toByteArray()));
+        readJsonFrom(
+            provider,
+            Example2.class,
+            new ByteArrayInputStream("{\"name\":\"example\"}".getBytes(StandardCharsets.UTF_8)));
     assertThat(actualExample2).isInstanceOf(Example2.class);
     assertThat(((Example2) actualExample2).getName()).isEqualTo("example");
+
+    final Object actualExample3 =
+        readJsonFrom(
+            provider,
+            ExampleNewVersion.class,
+            new ByteArrayInputStream(
+                "{\"id\":\"1337\", \"newValidField\":\"example\"}"
+                    .getBytes(StandardCharsets.UTF_8)));
+    assertThat(actualExample3).isInstanceOf(ExampleNewVersion.class);
+    assertThat(((ExampleNewVersion) actualExample3).getId()).isEqualTo(1337L);
+    assertThat(((ExampleNewVersion) actualExample3).getNewValidField()).isEqualTo("example");
+
+    final Object actualExample4 =
+        readJsonFrom(
+            provider,
+            Example.class,
+            new ByteArrayInputStream(
+                "{\"id\":\"1337\", \"newValidField\":\"example\"}"
+                    .getBytes(StandardCharsets.UTF_8)));
+    assertThat(actualExample4).isInstanceOf(Example.class);
+    assertThat(((Example) actualExample4).getId()).isEqualTo(1337L);
   }
 
   private Object readJsonFrom(

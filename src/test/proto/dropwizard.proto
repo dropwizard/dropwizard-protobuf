@@ -13,3 +13,8 @@ message Example {
 message Example2 {
   string name = 1;
 };
+
+message ExampleNewVersion {
+  int64 id = 1;
+  string newValidField = 2;
+};
