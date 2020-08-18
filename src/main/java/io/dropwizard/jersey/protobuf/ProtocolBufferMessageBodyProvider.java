@@ -100,6 +100,7 @@ public class ProtocolBufferMessageBodyProvider
       return builder.build();
     } else if (mediaType.getSubtype().contains("json-format")) {
       JsonFormat.parser()
+          .ignoringUnknownFields()
           .merge(new InputStreamReader(entityStream, StandardCharsets.UTF_8), builder);
       return builder.build();
     } else {
