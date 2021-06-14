@@ -5,7 +5,7 @@ Dropwizard Protobuf
 [![GitHub license](https://img.shields.io/github/license/dropwizard/dropwizard-protobuf.svg?style=flat-square)](https://github.com/dropwizard/dropwizard-protobuf/tree/master)
 
 
-`dropwizard-protobuf` is a [Jersey](https://jersey.github.io) [JAX-RS Entity Provider](https://jersey.github.io/documentation/latest/message-body-workers.html) that allows reading and writing messages in Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) format.
+`dropwizard-protobuf` is a [Jersey](https://eclipse-ee4j.github.io/jersey/) [JAX-RS Entity Provider](https://www.oracle.com/technical-resources/articles/java/jax-rs.html) that allows reading and writing messages in Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) format.
 
 
 Usage
