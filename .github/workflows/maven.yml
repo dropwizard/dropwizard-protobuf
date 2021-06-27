@@ -9,17 +9,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        java_version: [11, 14]
-        os: [ubuntu-latest, macOS-latest]
+        java_version: [11, 16]
+        os: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v2.3.2
     - name: Set up JDK
       uses: actions/setup-java@v2.1.0
       with:
+        distribution: "adopt"
         java-version: ${{ matrix.java_version }}
-    - name: Print Java and Maven versions
-      run: ./mvnw -B -s .github/settings.xml -v
     - name: Build with Maven
-      run: ./mvnw -B -s .github/settings.xml install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+      run: ./mvnw -B -V -ntp -ff -s .github/settings.xml install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
     - name: Run tests
-      run: ./mvnw -B -s .github/settings.xml verify
+      run: ./mvnw -B -V -ntp -ff -s .github/settings.xml verify
