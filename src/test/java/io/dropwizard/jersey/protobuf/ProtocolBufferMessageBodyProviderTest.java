@@ -30,7 +30,7 @@ import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
 import javax.ws.rs.core.MultivaluedHashMap;
 import org.glassfish.jersey.internal.util.collection.StringKeyIgnoreCaseMultivaluedMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ProtocolBufferMessageBodyProviderTest {
   private final Annotation[] NONE = new Annotation[0];
