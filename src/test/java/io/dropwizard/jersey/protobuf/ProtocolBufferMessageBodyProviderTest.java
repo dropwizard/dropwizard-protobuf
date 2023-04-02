@@ -23,12 +23,12 @@ import com.google.protobuf.Message;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.Example2;
 import io.dropwizard.jersey.protobuf.protos.DropwizardProtosTest.ExampleNewVersion;
+import jakarta.ws.rs.core.MultivaluedHashMap;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
-import javax.ws.rs.core.MultivaluedHashMap;
 import org.glassfish.jersey.internal.util.collection.StringKeyIgnoreCaseMultivaluedMap;
 import org.junit.jupiter.api.Test;
 
