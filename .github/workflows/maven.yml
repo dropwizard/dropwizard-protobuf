@@ -4,10 +4,12 @@ on:
     branches:
     - 2.1.x
     - 3.0.x
+    - 4.0.x
   push:
     branches:
     - 2.1.x
     - 3.0.x
+    - 4.0.x
 jobs:
   build:
     runs-on: ${{ matrix.os }}
