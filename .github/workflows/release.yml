@@ -1,0 +1,11 @@
+---
+name: Release
+# yamllint disable-line rule:truthy
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  release:
+    uses: dropwizard/workflows/.github/workflows/release.yml@main
+    secrets: inherit

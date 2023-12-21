@@ -1,0 +1,20 @@
+---
+name: Build
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches:
+      - release/*
+  pull_request:
+jobs:
+  yamllint:
+    uses: dropwizard/workflows/.github/workflows/yamllint.yml@main
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        java-version: ['11', '17', '21']
+    uses: dropwizard/workflows/.github/workflows/maven.yml@main
+    secrets: inherit
+    with:
+      java-version: ${{ matrix.java-version }}
