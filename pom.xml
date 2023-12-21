@@ -27,7 +27,7 @@
 
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
-    <version>3.0.0-2-SNAPSHOT</version>
+    <version>3.0.5-1</version>
     <packaging>jar</packaging>
 
     <name>Dropwizard Protocol Buffers Support</name>
@@ -131,4 +131,8 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <tag>v3.0.5-1</tag>
+  </scm>
 </project>
