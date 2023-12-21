@@ -19,10 +19,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.smoketurner.dropwizard</groupId>
-        <artifactId>dropwizard-pom</artifactId>
-        <version>3.0.1-1</version>
+        <groupId>io.dropwizard.modules</groupId>
+        <artifactId>module-parent</artifactId>
+        <version>3.0.0-rc.2</version>
     </parent>
+
 
     <groupId>io.dropwizard.modules</groupId>
     <artifactId>dropwizard-protobuf</artifactId>
@@ -31,14 +32,6 @@
 
     <name>Dropwizard Protocol Buffers Support</name>
     <description>Support for reading and writing Google Protocol Buffer objects</description>
-    <url>https://github.com/dropwizard/dropwizard-protobuf</url>
-
-    <scm>
-        <developerConnection>scm:git:git@github.com:dropwizard/dropwizard-protobuf.git</developerConnection>
-        <connection>scm:git:https://github.com/dropwizard/dropwizard-protobuf.git</connection>
-        <url>https://github.com/dropwizard/dropwizard-protobuf</url>
-        <tag>HEAD</tag>
-    </scm>
 
     <properties>
         <protobuf.version>3.25.1</protobuf.version>
@@ -69,6 +62,16 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
         </dependency>
+            <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -97,6 +100,26 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify.fmt</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>2.21.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.googlejavaformat</groupId>
+                        <artifactId>google-java-format</artifactId>
+                        <version>1.19.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
