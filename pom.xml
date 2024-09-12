@@ -34,7 +34,7 @@
     <description>Support for reading and writing Google Protocol Buffer objects</description>
 
     <properties>
-        <protobuf.version>4.28.0</protobuf.version>
+        <protobuf.version>4.28.1</protobuf.version>
         <sonar.projectKey>dropwizard_dropwizard-protobuf</sonar.projectKey>
     </properties>
 
